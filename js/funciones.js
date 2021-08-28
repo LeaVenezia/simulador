@@ -1,5 +1,12 @@
 /* Este archivo contiene las funciones relevantes */
 
+const mostrarProductos = () =>{
+    let productos = "Que Torta vas llevar?: \n"
+    tortas.forEach((tortas,i)=> productos += i+1 + ".-" + tortas.nombre + "\n")
+    productos += (tortas.length + 1) + ".-Salir"
+    return parseInt(prompt(productos));
+}
+
 
 
 const verificarStock = ( cantidad , stock ) =>{
@@ -11,50 +18,13 @@ const verificarStock = ( cantidad , stock ) =>{
 }
 
 
-const addCarrito = ( producto , cantidad ) =>{
-    switch(producto) {
-        case 1:
-            if (verificarStock(cantidad, stockChocotorta)){
-                carrito += (cantidad * priceChocotorta);
-                stockChocotorta -= cantidad;
-                alert(`Torta agregada al carrito`)
-            }
-        break;
-            
-        case 2:
-            if (verificarStock(cantidad, stockLemonPie)){
-                carrito += (cantidad * priceLemonPie);
-                stockLemonPie -= cantidad;
-                alert(`Torta agregada al carrito`)
-            }
-        break;
-        
-        case 3:
-            if (verificarStock(cantidad, stockBrownie)){
-                carrito += (cantidad * priceBrownie);
-                stockBrownie -= cantidad;
-                alert(`Torta agregada al carrito`)
-            }
-        break;
-                
-        case 4:
-            if (verificarStock(cantidad, stockCheesecake)){
-                carrito += (cantidad * priceCheesecake);
-                stockCheesecake -= cantidad;
-                alert(`Torta agregada al carrito`)
-            }
-        break;
+const addCarrito = ( producto, cantidad) =>{
+   let found = tortas.find(tortas => tortas.id === producto);
+   if(verificarStock(cantidad,found.stock)){
+    carrito += (cantidad * found.precio);
+    tortas[producto-1].stock-=cantidad;
+    alert(`${found.nombre} fue agregado al carrito`)
+   }
 
-        case 5:
-            if (verificarStock(cantidad, stockPastaFrola)){
-                carrito += (cantidad * pricePastaFrola);
-                stockPastaFrola -= cantidad;
-                alert(`Torta agregada al carrito`)
-            }
-        break;
-
-        default:
-            alert(`Producto no encontrado`)
-
-    }
 }
+
